@@ -56,7 +56,7 @@ var filters = {
     },
     "Overheat": {
         "transparent": 0x00FF00 + "",
-        "duration": "0.85 / 8.0 * 2.0",
+        "duration": "0.85 / 4.0",
         "vertex": "#version 100\nprecision mediump float;\n\nattribute vec2 meshPosition;\nuniform float time;\n\nvarying vec2 uv;\n\nfloat sliding_from_left_to_right(float time_interval) {\n    return (mod(time, time_interval) - time_interval * 0.5) / (time_interval * 0.5);\n}\n\nfloat flipping_directions(float time_interval) {\n    return 1.0 - 2.0 * mod(floor(time / time_interval), 2.0);\n}\n\nvoid main() {\n    float scale = 0.40;\n    float hops = 2.0;\n    float x_time_interval = 0.85 / 8.0;\n    float y_time_interval = x_time_interval / (2.0 * hops);\n    float height = 0.5;\n    vec2 offset = vec2(\n        sliding_from_left_to_right(x_time_interval) * flipping_directions(x_time_interval) * (1.0 - scale),\n        ((sliding_from_left_to_right(y_time_interval) * flipping_directions(y_time_interval) + 1.0) / 4.0) - height);\n\n    gl_Position = vec4(\n        meshPosition * scale + offset,\n        0.0,\n        1.0);\n\n    uv = (meshPosition + vec2(1.0, 1.0)) / 2.0;\n\n    uv.x = (flipping_directions(x_time_interval) + 1.0) / 2.0 - uv.x * flipping_directions(x_time_interval);\n}\n",
         "fragment": "#version 100\n\nprecision mediump float;\n\nuniform vec2 resolution;\nuniform float time;\n\nuniform sampler2D emote;\n\nvarying vec2 uv;\n\nvoid main() {\n    gl_FragColor = texture2D(emote, vec2(uv.x, 1.0 - uv.y)) * vec4(1.0, 0.0, 0.0, 1.0);\n    gl_FragColor.w = floor(gl_FragColor.w + 0.5);\n}\n"
     },

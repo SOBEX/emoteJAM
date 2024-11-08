@@ -184,7 +184,7 @@ void main() {
     },
     "Overheat": {
         "transparent": 0x00FF00 + "",
-        "duration": "0.85 / 8.0 * 2.0",
+        "duration": "0.85 / 4.0",
         "vertex": `#version 100
 precision mediump float;
 
@@ -744,7 +744,7 @@ void main() {
     float hold2 = 1.0 - float(time_clipped > (2.5 * 3.14) && time_clipped < (4.0 * 3.14));
 
     float cycle_1 = 1.0 - ((s1 * sin(time_clipped) * (1.0 - hold1)) + hold1);
-    float cycle_2 = s2 * hold2 * (sin(time_clipped) - 1.0); 
+    float cycle_2 = s2 * hold2 * (sin(time_clipped) - 1.0);
 
     gl_Position = vec4(meshPosition.x + 1.0 + cycle_1 + cycle_2 , meshPosition.y, 0.0, 1.0);
     uv = (meshPosition + 1.0) / 2.0;
@@ -766,7 +766,7 @@ void main() {
     gl_FragColor = texture2D(emote, vec2(uv.x, 1.0 - uv.y));
     gl_FragColor.w = floor(gl_FragColor.w + 0.5);
 }
-`, 
+`,
 	},
     "Matrix": {
         "transparent": null,
@@ -823,7 +823,7 @@ void main() {
         {
             float random = 2920.0 * sin(n.x * 21942.0 + n.y * 171324.0 + 8912.0) *
              cos(n.x * 23157.0 * n.y * 217832.0 + 9758.0);
-        
+
             return (sin(random) + 1.0) / 2.0;
         }
 
@@ -837,15 +837,15 @@ void main() {
         {
             vec2 uv = _uv;
             uv.y = 1.0 - _uv.y;
-            
+
             float number_of_numbers = 8.0;
             float number_change_rate = 2.0;
             float amount_of_numbers = 0.6; // from 0 - 1
-            
+
             vec4 texture_color = texture2D(emote, uv);
             vec4 number_color = vec4(0, 0.7, 0, 1);
 
-            float looped_time = loop_time(3.0); 
+            float looped_time = loop_time(3.0);
 
             vec2 translation = vec2(0, looped_time * -8.0);
 
@@ -911,7 +911,7 @@ void main() {
             float right = pos.x + size.x;
             float bottom = pos.y;
             float top = pos.y + size.y;
-            return (step(bottom, uv.y) - step(top, uv.y)) * (step(left, uv.x) - step(right, uv.x)); 
+            return (step(bottom, uv.y) - step(top, uv.y)) * (step(left, uv.x) - step(right, uv.x));
         }
 
         void main() {
@@ -919,7 +919,7 @@ void main() {
             float flag_height = 0.75;
             float wave_size = 0.08;
             vec4 stick_color = vec4(107.0 / 256.0, 59.0 / 256.0, 9.0 / 256.0,1);
-            
+
             vec2 flag_uv = _uv;
             flag_uv.x = (1.0 / (1.0 - stick_width)) * (flag_uv.x - stick_width);
             flag_uv.y *= 1.0 / flag_height;
