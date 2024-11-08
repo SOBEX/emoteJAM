@@ -250,6 +250,10 @@ function FilterList() {
         root.add(new Option(name));
     }
 
+    root.selectedFilterName$ = function() {
+        return root.selectedOptions[0].value;
+    };
+
     root.selectedFilter$ = function() {
         return filters[root.selectedOptions[0].value];
     };
@@ -374,7 +378,7 @@ function FilterSelector() {
         syncParams();
     });
 
-    root.render$ = function (filename: string): any | undefined {
+    root.render$ = function (filename: string, extension: string): any | undefined {
         if (program === undefined) {
             console.warn('Could not rendering anything because the filter was not selected');
             return undefined;
@@ -474,7 +478,7 @@ function FilterSelector() {
             renderPreview.src = URL.createObjectURL(blob);
             renderPreview.style.display = "block";
             renderDownload.href = renderPreview.src;
-            renderDownload.download = filename;
+            renderDownload.download = `${filename}${filterList_.selectedFilterName$()}.${extension}`;
             renderDownload.style.display = "block";
             renderSpinner.style.display = "none";
 
@@ -567,7 +571,7 @@ window.onload = () => {
             gif.abort();
         }
         const fileName = imageSelector.selectedFileName$();
-        gif = filterSelector.render$(`${fileName}.gif`);
+        gif = filterSelector.render$(fileName, 'gif');
     };
 }
 // TODO(#75): run typescript compiler on CI
