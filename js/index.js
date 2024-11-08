@@ -283,7 +283,8 @@ function FilterSelector() {
         }
         var gif = new GIF({
             workers: 5,
-            quality: 10,
+            quality: document.getElementById('quality')?.value || 10,
+            dither: document.getElementById('dither')?.value || false,
             width: CANVAS_WIDTH,
             height: CANVAS_HEIGHT,
             transparent: program.transparent
@@ -299,7 +300,7 @@ function FilterSelector() {
                 context.vars[paramName] = snapshot[paramName].value;
             }
         }
-        var fps = 30;
+        var fps = document.getElementById('fps')?.value || 30;
         var dt = 1.0 / fps;
         var duration = Math.min(run_expr(program.duration, context), 60);
         var renderProgress = document.getElementById("render-progress");

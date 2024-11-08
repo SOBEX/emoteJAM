@@ -1,4 +1,4 @@
-let feature_params = false; 
+let feature_params = false;
 
 interface VertexAttribs {
     [name: string]: number
@@ -124,7 +124,7 @@ function loadFilterProgram(gl: WebGLRenderingContext, filter: Filter, vertexAttr
         if (paramName in uniforms) {
             throw new Error(`Redefinition of existing uniform parameter ${paramName}`);
         }
-        
+
         switch (filter.params[paramName].type) {
         case "float": {
             const valuePreview = span(filter.params[paramName].init.toString());
@@ -388,7 +388,8 @@ function FilterSelector() {
         // TODO(#74): gif.js typing are absolutely broken
         const gif = new GIF({
             workers: 5,
-            quality: 10,
+            quality: document.getElementById('quality')?.value || 10,
+            dither: document.getElementById('dither')?.value || false,
             width: CANVAS_WIDTH,
             height: CANVAS_HEIGHT,
             transparent: program.transparent,
@@ -406,7 +407,7 @@ function FilterSelector() {
             }
         }
 
-        const fps = 30;
+        const fps = document.getElementById('fps')?.value || 30;
         const dt = 1.0 / fps;
         // TODO(#59): come up with a reasonable way to handle malicious durations
         const duration = Math.min(run_expr(program.duration, context), 60);

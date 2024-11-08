@@ -31,6 +31,28 @@
     <h2>3. Render the GIF</h2>
     <p>Click "Render" and when the rendering process is done you can just Right Click the final image and Save it as a GIF that you can then upload to <a href="https://betterttv.com/">BTTV</a>.</p>
     <div class="widget">
+      <div class="widget-element">
+        <label for="fps">FPS:</label>
+        <input type="number" id="fps" min="1" step="1" value="30" />
+      </div>
+      <div class="widget-element">
+        <label for="quality">Quality:</label>
+        <input type="number" id="quality" min="1" step="1" value="10" />
+      </div>
+      <div class="widget-element">
+        <label for="dither">Dithering Algorithm:</label>
+          <select id="dither">
+            <option value="">None</option>
+            <option value="FloydSteinberg">FloydSteinberg</option>
+            <option value="FloydSteinberg-serpentine">FloydSteinberg-serpentine</option>
+            <option value="FalseFloydSteinberg">FalseFloydSteinberg</option>
+            <option value="FalseFloydSteinberg-serpentine">FalseFloydSteinberg-serpentine</option>
+            <option value="Stucki">Stucki</option>
+            <option value="Stucki-serpentine">Stucki-serpentine</option>
+            <option value="Atkinson">Atkinson</option>
+            <option value="Atkinson-serpentine">Atkinson-serpentine</option>
+          </select>
+        </div>
       <div class="widget-element progress-bar"><div class="progress" id="render-progress"></div></div>
       <div class="widget-element"><input id="render" type="submit" value="Render" /></div>
       <div class="widget-element">
